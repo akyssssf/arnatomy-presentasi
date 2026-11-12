@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARnatomy: Laporan Progres Blok 2026</title>
+<style>
+@font-face{font-family:"Inter";font-weight:400;src:url("fonts/Inter-400.ttf") format("truetype")}
+@font-face{font-family:"Inter";font-weight:500;src:url("fonts/Inter-500.ttf") format("truetype")}
+@font-face{font-family:"Inter";font-weight:600;src:url("fonts/Inter-600.ttf") format("truetype")}
+@font-face{font-family:"Inter Tight";font-weight:600;src:url("fonts/InterTight-600.ttf") format("truetype")}
+@font-face{font-family:"Inter Tight";font-weight:700;src:url("fonts/InterTight-700.ttf") format("truetype")}
+:root{
+  --biru:#1566f4; --biru-gelap:#0d55d9; --latar:#e6e8eb; --abu:#f1f2f4; --teks:#171717;
+  --n400:#646870; --n500:#5b5f66; --hijau:#065f46; --hijau-muda:#d1fae5; --amber:#92400e; --amber-muda:#fef3c7;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:#0e1424;overflow:hidden;font-family:"Inter",system-ui,sans-serif;color:var(--teks)}
+#panggung{position:fixed;left:50%;top:50%;width:1280px;height:720px;transform-origin:center;overflow:hidden;background:var(--latar)}
+.slide{position:absolute;inset:0;padding:60px 72px 70px;display:none;flex-direction:column;
+  background:var(--latar) url("img/latar.png") center/cover no-repeat}
+.slide.aktif{display:flex}
+.slide.biru{background:var(--biru) url("img/biru.png") center/cover no-repeat;color:#fff}
+.mikro{font-size:15px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--n400)}
+.mikro::before{content:"/ ";color:var(--biru)}
+.biru .mikro{color:rgba(255,255,255,.75)} .biru .mikro::before{color:#fff}
+h1,h2,h3{font-family:"Inter Tight",sans-serif;font-weight:600;letter-spacing:-.035em}
+h1{font-size:112px;line-height:1;font-weight:700}
+h2{font-size:56px;line-height:1.05;margin-top:12px}
+h3{font-size:26px;line-height:1.15}
+.titik::after{content:"\25CF";font-size:.42em;margin-left:.2em;vertical-align:.3em;color:var(--biru);letter-spacing:0}
+.biru .titik::after{color:#fff}
+p,li{font-size:24px;line-height:1.45}
+.redup{color:var(--n500)}
+.kartu{background:#fff;border-radius:24px;padding:28px 30px}
+.kaca{background:rgba(255,255,255,.52);border:1px solid rgba(255,255,255,.8);border-radius:28px;
+  box-shadow:0 18px 50px rgba(17,24,39,.10), inset 0 1px 0 rgba(255,255,255,.9)}
+.biru .kaca{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.45);box-shadow:0 18px 50px rgba(0,30,110,.25), inset 0 1px 0 rgba(255,255,255,.5)}
+.lencana{display:inline-block;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:99px;background:rgba(0,0,0,.06);color:var(--n500)}
+.lencana.hijau{background:var(--hijau-muda);color:var(--hijau)} .lencana.amber{background:var(--amber-muda);color:var(--amber)}
+.lencana.gelap{background:#171717;color:#fff} .lencana.biruk{background:var(--biru);color:#fff}
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+.ikon{width:56px;height:56px;border-radius:50%;background:var(--abu);display:flex;align-items:center;justify-content:center;flex:none}
+.ikon svg{width:28px;height:28px;stroke:var(--biru);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.angka{font-family:"Inter Tight";font-weight:700;letter-spacing:-.04em;line-height:1}
+.bilah{height:16px;border-radius:99px;background:rgba(0,0,0,.08);overflow:hidden}
+.bilah i{display:block;height:100%;border-radius:99px;background:var(--biru)}
+.alur{display:flex;align-items:center;gap:14px}
+.simpul{flex:1;background:#fff;border-radius:22px;padding:22px 18px;text-align:center;font-weight:600;font-size:22px;line-height:1.25}
+.simpul small{display:block;font-weight:400;font-size:16px;color:var(--n500);margin-top:6px}
+.simpul.biruk{background:var(--biru);color:#fff} .simpul.biruk small{color:rgba(255,255,255,.8)}
+.panah{font-size:34px;color:var(--biru);flex:none}
+.daftar{list-style:none;padding:0;display:grid;gap:14px}
+.daftar li{padding-left:34px;position:relative;font-size:23px}
+.daftar li::before{content:"";position:absolute;left:0;top:.52em;width:14px;height:14px;border-radius:50%;background:var(--biru)}
+.daftar.amber li::before{background:#d97706}
+.kaki{position:absolute;left:72px;right:72px;bottom:24px;display:flex;justify-content:space-between;align-items:center;font-size:15px;color:var(--n400)}
+.biru .kaki{color:rgba(255,255,255,.75)}
+.penutur{display:inline-block;padding:4px 12px;border-radius:99px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);font-weight:600;color:var(--teks);margin-left:12px}
+.biru .penutur{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4);color:#fff}
+/* piringan organ */
+.piringan{border-radius:50%;background:#fff;box-shadow:0 20px 60px rgba(0,30,110,.25);overflow:hidden;display:flex;align-items:center;justify-content:center}
+.piringan img{width:78%;height:78%;object-fit:contain}
+/* tiruan layar aplikasi */
+.ponsel{zoom:.84;width:330px;height:640px;border-radius:52px;background:#0f1115;padding:11px;box-shadow:0 30px 80px rgba(17,24,39,.35);position:relative;flex:none}
+.layar{width:100%;height:100%;border-radius:42px;overflow:hidden;position:relative;padding:50px 18px 0;
+  background:var(--latar) url("img/layar.png") center/cover no-repeat}
+.layar .mk{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--n400);font-weight:500}
+.layar .mk::before{content:"/ ";color:var(--biru)}
+.layar .jd{font-family:"Inter Tight";font-weight:700;font-size:30px;letter-spacing:-.035em;margin:4px 0 12px}
+.layar .jd::after{content:"\25CF";font-size:.42em;margin-left:.2em;vertical-align:.3em;color:var(--biru)}
+.mini{background:#fff;border-radius:18px;padding:10px;display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.mini .ft{width:64px;height:64px;border-radius:14px;background:var(--abu);display:flex;align-items:center;justify-content:center;flex:none}
+.mini .ft img{width:80%;height:80%;object-fit:contain}
+.mini b{font-family:"Inter Tight";font-size:19px;letter-spacing:-.03em;display:block}
+.mini span{display:inline-block;font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:rgba(0,0,0,.06);color:var(--n500);padding:3px 8px;border-radius:99px;margin-bottom:4px}
+.tabbar{position:absolute;left:12px;right:12px;bottom:14px;height:58px;border-radius:99px;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.85);
+  box-shadow:0 12px 30px rgba(17,24,39,.14), inset 0 1px 0 rgba(255,255,255,.9);display:flex;align-items:center;padding:0 4px}
+.tabbar div{flex:1;text-align:center;font-size:9px;font-weight:500;color:var(--n500)}
+.tabbar div.on{background:rgba(255,255,255,.85);border-radius:99px;padding:8px 0;color:var(--biru);font-weight:600;box-shadow:0 4px 10px rgba(17,24,39,.08)}
+.tabbar svg{display:block;margin:0 auto 2px;width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.langkah{display:flex;gap:18px;align-items:flex-start}
+.no{width:48px;height:48px;border-radius:50%;background:var(--biru);color:#fff;font-family:"Inter Tight";font-weight:700;font-size:24px;display:flex;align-items:center;justify-content:center;flex:none}
+#progres,#petunjuk{position:fixed;z-index:5}
+#progres{left:0;top:0;height:4px;background:var(--biru);width:0}
+#petunjuk{right:14px;top:12px;font-size:13px;color:#8f98ab;font-family:ui-monospace,Menlo,monospace}
+/* animasi tiap pindah slide */
+.slide.aktif{animation:masuk .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes masuk{from{opacity:0;transform:translateX(var(--arah,48px)) scale(.985)}to{opacity:1;transform:none}}
+.slide.aktif .ani{animation:naik .65s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--d,0)*85ms + 180ms)}
+@keyframes naik{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+.slide.aktif .ani.mikro{animation-name:geser}
+@keyframes geser{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.slide.aktif h1.ani,.slide.aktif h2.ani{animation-name:judul}
+@keyframes judul{from{opacity:0;transform:translateY(22px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.slide.aktif .ani.panah{animation-name:panahmasuk}
+@keyframes panahmasuk{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.slide.aktif .piringan.ani{animation:naik .7s cubic-bezier(.2,.75,.2,1) both,melayang 6s ease-in-out 1.1s infinite;animation-delay:calc(var(--d,0)*85ms + 180ms),1.1s}
+@keyframes melayang{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.slide.aktif .bilah i{transform-origin:left;animation:isi 1.2s cubic-bezier(.2,.7,.2,1) .6s both}
+@keyframes isi{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+html.statis *,html.statis .slide.aktif{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media print{*{animation:none!important}}
+@page{size:1280px 720px;margin:0}
+@media print{html,body{overflow:visible;background:#fff}#panggung{position:static;transform:none!important;height:auto;width:auto}.slide{position:relative;display:flex!important;height:720px;width:1280px;page-break-after:always}#progres,#petunjuk{display:none}}
+</style>
+</head>
+<body>
+<div id="progres"></div>
+<div id="petunjuk">← → pindah · F layar penuh</div>
+<main id="panggung">
+
+<!-- 1 · Judul -->
+<section class="slide biru" data-penutur="Akyas">
+  <div class="mikro" style="margin-top:34px">Laporan progres blok 2026</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;flex:1">
+    <div style="max-width:640px">
+      <h1 class="titik" style="margin-top:14px">ARnatomy</h1>
+      <p style="margin-top:22px;font-size:28px;line-height:1.35;color:rgba(255,255,255,.92)">Aplikasi pembelajaran anatomi berbasis Augmented Reality dengan asisten penjelasan AI</p>
+      <div class="kaca" style="margin-top:38px;padding:22px 28px">
+        <p style="font-size:22px;font-weight:600">Muhammad Akyas Febryansah <span style="font-weight:400;opacity:.8">· V3925029</span></p>
+        <p style="font-size:22px;font-weight:600;margin-top:4px">Nehan Raki Alfawzi <span style="font-weight:400;opacity:.8">· V3925013</span></p>
+        <p style="font-size:17px;margin-top:10px;opacity:.85">D3 Teknik Informatika · Sekolah Vokasi UNS · Kelas B</p>
+      </div>
+    </div>
+    <div style="position:relative;width:440px;height:440px">
+      <div class="piringan" style="position:absolute;left:0;top:30px;width:290px;height:290px"><img src="img/jantung.webp" alt="Jantung 3D"></div>
+      <div class="piringan" style="position:absolute;right:0;bottom:0;width:250px;height:250px"><img src="img/paru.webp" alt="Paru-paru 3D"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · Masalah dan solusi -->
+<section class="slide" data-penutur="Nehan">
+  <div class="mikro">Latar</div>
+  <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;flex:1;margin-top:6px">
+    <div style="padding-top:8px">
+      <h2 class="titik">Anatomi sulit dibayangkan dari gambar datar</h2>
+      <p class="redup" style="margin-top:26px;font-size:25px">Siswa SMP-SMA dan guru Biologi butuh media yang bisa diputar, diperbesar, dan dicoba langsung.</p>
+      <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap"><span class="lencana biruk">Jantung</span><span class="lencana biruk">Paru-paru</span><span class="lencana">Peredaran darah</span><span class="lencana">Pernapasan</span></div>
+    </div>
+    <div class="grid g2" style="align-content:center">
+      <div class="kartu"><div class="ikon"><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div><h3 style="margin-top:18px">Model 3D dan AR</h3><p class="redup" style="font-size:19px;margin-top:6px">Putar, perbesar, lalu taruh organ di ruanganmu.</p></div>
+      <div class="kartu"><div class="ikon"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6A8 8 0 1 1 21 12z"/></svg></div><h3 style="margin-top:18px">Asisten AI</h3><p class="redup" style="font-size:19px;margin-top:6px">Jawaban disusun dari isi 4 buku pelajaran.</p></div>
+      <div class="kartu"><div class="ikon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div><h3 style="margin-top:18px">Tugas belajar</h3><p class="redup" style="font-size:19px;margin-top:6px">Kuis, simulasi alur, dan rakit organ; skor dihitung server.</p></div>
+      <div class="kartu"><div class="ikon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3 style="margin-top:18px">Riwayat belajar</h3><p class="redup" style="font-size:19px;margin-top:6px">Tiap bagian yang dipelajari tercatat, progres terlihat.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Progres keseluruhan -->
+<section class="slide" data-penutur="Akyas">
+  <div class="mikro">Progres</div>
+  <h2 class="titik">Progres keseluruhan sekitar 85%</h2>
+  <div class="kaca" style="margin-top:26px;padding:26px 32px;display:flex;align-items:center;gap:36px">
+    <div class="angka" style="font-size:96px;color:var(--biru)">85%</div>
+    <div style="flex:1"><div class="bilah"><i style="width:85%"></i></div><p class="redup" style="margin-top:12px;font-size:21px">Backend dan web selesai, mobile sebagian.</p></div>
+  </div>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="kartu"><span class="lencana hijau">Selesai</span><h3 style="margin-top:16px">Backend</h3><p class="redup" style="font-size:20px;margin-top:8px">FR-01 sampai FR-19, 105 uji lulus, CI hijau</p></div>
+    <div class="kartu"><span class="lencana hijau">Selesai</span><h3 style="margin-top:16px">Web</h3><p class="redup" style="font-size:20px;margin-top:8px">Semua halaman berjalan dan bisa dicoba online</p></div>
+    <div class="kartu"><span class="lencana amber">Sebagian</span><h3 style="margin-top:16px">Mobile (iPhone)</h3><p class="redup" style="font-size:20px;margin-top:8px">3D, AR, asisten, kuis, simulasi sudah ada</p></div>
+  </div>
+</section>
+
+<!-- 4 · Backend dan database -->
+<section class="slide" data-penutur="Akyas">
+  <div class="mikro">Backend</div>
+  <h2 class="titik">Backend dan database</h2>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="kartu" style="text-align:center"><div class="angka" style="font-size:84px;color:var(--biru)">53</div><p class="redup" style="font-size:20px;margin-top:6px">operasi API</p></div>
+    <div class="kartu" style="text-align:center"><div class="angka" style="font-size:84px;color:var(--biru)">20</div><p class="redup" style="font-size:20px;margin-top:6px">tabel PostgreSQL</p></div>
+    <div class="kartu" style="text-align:center"><div class="angka" style="font-size:84px;color:var(--biru)">105</div><p class="redup" style="font-size:20px;margin-top:6px">uji otomatis lulus</p></div>
+  </div>
+  <div class="alur" style="margin-top:26px">
+    <div class="simpul">Klien<small>Web dan iPhone</small></div><div class="panah">→</div>
+    <div class="simpul biruk">API Hono<small>TypeScript, JWT, RBAC</small></div><div class="panah">→</div>
+    <div class="simpul">PostgreSQL<small>Drizzle, 16 entitas</small></div><div class="panah">+</div>
+    <div class="simpul">Asisten AI<small>RAG 412 potongan buku</small></div>
+  </div>
+  <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
+    <span class="lencana gelap">Swagger /docs</span><span class="lencana gelap">Docker Compose</span><span class="lencana gelap">Data di volume</span><span class="lencana">CI GitHub hijau</span>
+  </div>
+</section>
+
+<!-- 5 · Front end -->
+<section class="slide" data-penutur="">
+  <div class="mikro">Front end</div>
+  <h2 class="titik">Front end: pilihan teknologi dan alasannya</h2>
+  <div class="grid g2" style="margin-top:24px;flex:1;margin-bottom:6px;gap:20px">
+    <div class="kartu" style="padding:24px 28px">
+      <span class="lencana biruk">Web</span>
+      <p style="font-size:22px;font-weight:600;margin-top:14px;line-height:1.3">Next.js 16, React 19, TypeScript, Tailwind, Three.js</p>
+      <ul class="daftar" style="margin-top:16px;gap:10px">
+        <li style="font-size:19px;padding-left:28px"><b>Halaman dirender di server</b>, jadi cepat dibuka</li>
+        <li style="font-size:19px;padding-left:28px"><b>Penghubung ke backend</b> (/api ke /v1): token disimpan di cookie httpOnly, tidak terbaca JavaScript</li>
+        <li style="font-size:19px;padding-left:28px"><b>Three.js</b> menampilkan model 3D di browser tanpa plugin</li>
+        <li style="font-size:19px;padding-left:28px"><b>Tailwind</b> menjaga tampilan konsisten</li>
+      </ul>
+    </div>
+    <div class="kartu" style="padding:24px 28px">
+      <span class="lencana biruk">Mobile</span>
+      <p style="font-size:22px;font-weight:600;margin-top:14px;line-height:1.3">Flutter (iPhone), Provider, model_viewer</p>
+      <ul class="daftar" style="margin-top:16px;gap:10px">
+        <li style="font-size:19px;padding-left:28px"><b>Satu basis kode</b>, tampilan mengikuti gaya web</li>
+        <li style="font-size:19px;padding-left:28px"><b>AR lewat AR Quick Look</b> milik iOS, dipanggil dari kode Swift</li>
+        <li style="font-size:19px;padding-left:28px"><b>Flutter</b> sesuai arahan kelas mobile; token disimpan di penyimpanan aman</li>
+        <li style="font-size:19px;padding-left:28px"><b>Tab bar Liquid Glass</b> asli iOS 26</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Sistem AI (RAG) -->
+<section class="slide" data-penutur="Nehan">
+  <div class="mikro">Sistem AI</div>
+  <h2 class="titik">Asisten AI: menjawab dari buku (RAG)</h2>
+  <div class="alur" style="margin-top:20px;gap:10px">
+    <div class="simpul">4 buku PDF<small>412 potongan, 60 kata</small></div><div class="panah">→</div>
+    <div class="simpul">Pencarian hybrid<small>embedding + TF-IDF, 5 teratas</small></div><div class="panah">→</div>
+    <div class="simpul">Cek cakupan<small>di luar materi: ditolak</small></div><div class="panah">→</div>
+    <div class="simpul biruk">LLM Groq<small>gpt-oss-20b, jenjang SMP atau SMA</small></div><div class="panah">→</div>
+    <div class="simpul">Jawaban + sumber<small>buku dan halaman</small></div>
+  </div>
+  <div class="grid g4" style="margin-top:16px;gap:14px">
+    <div class="kartu" style="text-align:center;padding:12px 10px"><div class="angka" style="font-size:42px;color:var(--biru)">0,875</div><p class="redup" style="font-size:17px;margin-top:6px">Recall@5<br>(16 pertanyaan)</p></div>
+    <div class="kartu" style="text-align:center;padding:12px 10px"><div class="angka" style="font-size:42px;color:var(--biru)">0,74</div><p class="redup" style="font-size:17px;margin-top:6px">MRR<br>pencarian</p></div>
+    <div class="kartu" style="text-align:center;padding:12px 10px"><div class="angka" style="font-size:42px;color:var(--biru)">8/8</div><p class="redup" style="font-size:17px;margin-top:6px">jawaban benar<br>(tanpa RAG: 6/8)</p></div>
+    <div class="kartu" style="text-align:center;padding:12px 10px"><div class="angka" style="font-size:42px;color:var(--biru)">100%</div><p class="redup" style="font-size:17px;margin-top:6px">akurasi klasifikasi<br>sistem organ</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:16px;gap:14px">
+    <div class="kartu" style="padding:14px 22px"><span class="lencana hijau">Kelebihan</span>
+      <ul class="daftar" style="margin-top:12px;gap:6px"><li style="font-size:17px;padding-left:26px">Tanpa melatih ulang; tambah buku, bangun ulang indeks</li><li style="font-size:17px;padding-left:26px">Jawaban bersumber buku, di luar materi ditolak</li><li style="font-size:17px;padding-left:26px">Bahasa menyesuaikan jenjang SMP atau SMA</li></ul></div>
+    <div class="kartu" style="padding:14px 22px"><span class="lencana amber">Keterbatasan</span>
+      <ul class="daftar amber" style="margin-top:12px;gap:6px"><li style="font-size:17px;padding-left:26px">Uji kecil (16 pertanyaan); satu pertanyaan masih gagal</li><li style="font-size:17px;padding-left:26px">LLM masih bisa menambah fakta di luar buku</li><li style="font-size:17px;padding-left:26px">Bergantung layanan LLM; sumber belum tampil di web</li></ul></div>
+  </div>
+</section>
+
+<!-- 5 · Yang bisa dicoba pengguna -->
+<section class="slide" data-penutur="Akyas">
+  <div style="display:flex;gap:64px;align-items:center;flex:1;margin-top:-10px">
+    <div class="ponsel">
+      <div class="layar">
+        <div class="mk">Eksplorasi</div>
+        <div class="jd">Pilih organ</div>
+        <div class="mini"><div class="ft"><img src="img/jantung.webp" alt=""></div><div><span>Sistem peredaran darah</span><b>Jantung</b></div></div>
+        <div class="mini"><div class="ft"><img src="img/paru.webp" alt=""></div><div><span>Sistem pernapasan</span><b>Paru-paru</b></div></div>
+        <div class="tabbar">
+          <div><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v10H3z"/></svg>Beranda</div>
+          <div class="on"><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>Eksplorasi</div>
+          <div><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.5 7.2L3 21l1.8-6A8 8 0 1 1 21 12z"/></svg>Asisten</div>
+          <div><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/></svg>Tugas</div>
+          <div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 15-5 16 0"/></svg>Profil</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1">
+      <div class="mikro">Aplikasi</div>
+      <h2 class="titik">Yang bisa dicoba pengguna</h2>
+      <ul class="daftar" style="margin-top:30px">
+        <li><b>Jelajahi organ 3D</b>: putar dan perbesar</li>
+        <li><b>AR di iPhone</b>: taruh jantung atau paru-paru seukuran aslinya</li>
+        <li><b>Tanya asisten AI</b>: jawaban dari isi buku (sumber tampil di mobile)</li>
+        <li><b>Kuis dan simulasi</b>: skor dihitung server</li>
+      </ul>
+      <p class="redup" style="margin-top:30px;font-size:20px">Tampilan mobile mengikuti gaya web, dengan Liquid Glass ala iOS 26.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Kendala, yang belum selesai, dan rencana -->
+<section class="slide" data-penutur="Akyas dan Nehan">
+  <div class="mikro">Kendala dan rencana</div>
+  <h2 class="titik">Kendala, sisa pekerjaan, dan rencana</h2>
+  <div class="grid g3" style="margin-top:26px;flex:1;margin-bottom:6px;gap:18px">
+    <div class="kartu" style="padding:24px 24px">
+      <span class="lencana hijau">Kendala dan solusinya</span>
+      <ul class="daftar" style="margin-top:20px;gap:14px">
+        <li style="font-size:19px;padding-left:28px">Trial hosting habis, <b>dipasang ulang</b>; cadangan Docker Compose</li>
+        <li style="font-size:19px;padding-left:28px">Model 3D tidak didukung AR iOS, <b>dikonversi ke Draco dan USDZ</b></li>
+        <li style="font-size:19px;padding-left:28px">SKPL menyebut Unity, kami memakai Flutter, <b>dicatat sebagai revisi</b></li>
+      </ul>
+    </div>
+    <div class="kartu" style="padding:24px 24px">
+      <span class="lencana amber">Belum selesai</span>
+      <ul class="daftar amber" style="margin-top:20px;gap:14px">
+        <li style="font-size:19px;padding-left:28px">Rakit organ 3D di mobile</li>
+        <li style="font-size:19px;padding-left:28px">Login Google di mobile</li>
+        <li style="font-size:19px;padding-left:28px">Label menempel pada model saat AR</li>
+        <li style="font-size:19px;padding-left:28px">AR belum diuji menyeluruh di iPhone</li>
+        <li style="font-size:19px;padding-left:28px">Kuis belum dipisah per jenjang SMP/SMA</li>
+      </ul>
+    </div>
+    <div class="kartu" style="padding:24px 24px;background:var(--biru);color:#fff">
+      <span class="lencana" style="background:rgba(255,255,255,.2);color:#fff">Rencana</span>
+      <ul class="daftar" style="margin-top:20px;gap:14px">
+        <li style="font-size:19px;padding-left:28px">Uji AR dan semua layar di iPhone</li>
+        <li style="font-size:19px;padding-left:28px">Rakit organ dan login Google di mobile</li>
+        <li style="font-size:19px;padding-left:28px">Latihan soal per jenjang untuk persiapan ujian</li>
+        <li style="font-size:19px;padding-left:28px">Uji beban dan pasang di server kampus</li>
+        <li style="font-size:19px;padding-left:28px">Perbarui SKPL (<span style="white-space:nowrap">FR-16 s.d. FR-19</span>)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Demo -->
+<section class="slide biru" data-penutur="Akyas">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <div class="mikro">Demo</div>
+    <h1 class="titik" style="font-size:150px;margin-top:18px">Demo</h1>
+  </div>
+</section>
+
+<!-- 9 · Terima kasih -->
+<section class="slide biru" data-penutur="">
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+    <h1 class="titik" style="font-size:120px">Terima kasih</h1>
+    <p style="margin-top:34px;font-size:21px;line-height:1.6;opacity:.85">github.com/akyssssf/ARnatomy-production<br>github.com/akyssssf/arnatomy-mobile</p>
+  </div>
+</section>
+
+</main>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),p=document.getElementById('panggung'),prog=document.getElementById('progres'),i=0;
+  function skala(){var s=Math.min(innerWidth/1280,innerHeight/720);p.style.transform='translate(-50%,-50%) scale('+s+')'}
+  slides.forEach(function(s,k){
+    var f=document.createElement('div');f.className='kaki';
+    f.innerHTML='<span>ARnatomy · Laporan progres blok 2026</span><span>'+(k+1)+' / '+slides.length+'</span>';
+    s.appendChild(f);
+  });
+  var KAND='.mikro,h1,h2,.kartu,.kaca,.simpul,.panah,.daftar li,.lencana,.piringan,.ponsel,.langkah,.bilah,.slide>p,.slide>div>p,.slide>div>h1,.slide>div>div>h1';
+  slides.forEach(function(s){
+    var semua=[].slice.call(s.querySelectorAll(KAND)).filter(function(e){return !e.closest('.kaki')});
+    var pilih=semua.filter(function(e){var a=e.parentElement&&e.parentElement.closest(KAND);return !a||!s.contains(a)});
+    pilih.forEach(function(e,k){e.classList.add('ani');e.style.setProperty('--d',k)});
+    // elemen angka: hitung naik dari 0
+    [].slice.call(s.querySelectorAll('.angka')).forEach(function(e){e.dataset.asli=e.textContent});
+  });
+  function hitung(s){
+    [].slice.call(s.querySelectorAll('.angka')).forEach(function(e){
+      var t=e.dataset.asli,m=t.match(/^(\d+)(?:,(\d+))?(%?)$/);if(!m)return;
+      var des=m[2]?m[2].length:0,akhir=parseFloat(m[1]+(m[2]?'.'+m[2]:'')),t0=null,tunda=450;
+      e.textContent=(0).toFixed(des).replace('.',',')+m[3];
+      function langkah(ts){if(t0===null)t0=ts;var r=Math.min(1,(ts-t0-tunda)/1100);
+        if(r<0){requestAnimationFrame(langkah);return}
+        var v=akhir*(1-Math.pow(1-r,3));e.textContent=v.toFixed(des).replace('.',',')+m[3];
+        if(r<1)requestAnimationFrame(langkah);else e.textContent=t}
+      requestAnimationFrame(langkah);
+    });
+  }
+  function tampil(n){var dulu=i;i=Math.max(0,Math.min(slides.length-1,n));
+    var statis=document.getElementById('petunjuk').style.display==='none';
+    document.documentElement.classList.toggle('statis',statis);
+    p.style.setProperty('--arah',(i<dulu?-48:48)+'px');
+    slides.forEach(function(s,k){s.classList.toggle('aktif',k===i)});
+    if(!statis&&!matchMedia('(prefers-reduced-motion:reduce)').matches)hitung(slides[i]);
+    else [].slice.call(slides[i].querySelectorAll('.angka')).forEach(function(e){e.textContent=e.dataset.asli});
+    prog.style.width=((i+1)/slides.length*100)+'%';try{history.replaceState(null,'','#'+(i+1))}catch(e){}}
+  document.addEventListener('keydown',function(e){var k=e.key;
+    if(k==='ArrowRight'||k==='PageDown'||k===' '||k==='Enter'){e.preventDefault();tampil(i+1)}
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='Backspace'){e.preventDefault();tampil(i-1)}
+    else if(k==='f'||k==='F'){if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen()}});
+  addEventListener('resize',skala);skala();
+  function dariHash(){var h=parseInt(location.hash.slice(1),10);tampil(isNaN(h)?0:h-1)}
+  addEventListener('hashchange',dariHash);dariHash();
+})();
+</script>
+</body>
+</html>
